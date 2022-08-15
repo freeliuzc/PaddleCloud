@@ -1,0 +1,25 @@
+ARG IMAGE_TAG=2.3.0
+ARG PADDLE_TOOLKIT=PaddleOCR
+FROM registry.baidubce.com/paddletoolkit-bml/paddle:${IMAGE_TAG}
+
+ARG PADDLE_TOOLKIT
+COPY ${PADDLE_TOOLKIT} ./${PADDLE_TOOLKIT}
+
+# previous install
+
+RUN pip3.7 install --no-cache-dir --upgrade pip \
+    -i https://mirror.baidu.com/pypi/simple
+RUN pip3.7 install --no-cache-dir --upgrade jupyter-server==1.6.4 jupyterlab==3.3.4 ipykernel ipython \
+    -i https://mirror.baidu.com/pypi/simple
+
+WORKDIR /home/${PADDLE_TOOLKIT}
+
+# toolkit install
+RUN pip3.7 install --no-cache-dir -r requirements.txt \
+    -i https://mirror.baidu.com/pypi/simple
+# LAC may be cause paddle reinstall
+RUN pip3.7 install visualdl regex pybind11 zstandard typing-extensions \
+    -i https://mirror.baidu.com/pypi/simple
+RUN python3.7 setup.py install
+
+CMD ["sh", "-C", "/opt/conda/include/container-start.sh"]
