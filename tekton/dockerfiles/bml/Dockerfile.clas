@@ -8,7 +8,6 @@ ARG PADDLE_TOOLKIT
 COPY ${PADDLE_TOOLKIT} ./${PADDLE_TOOLKIT}
 
 # previous install
-
 RUN /opt/conda/envs/python35-paddle120-env/bin/pip install --no-cache-dir --upgrade pip \
     -i https://mirror.baidu.com/pypi/simple
 
@@ -17,5 +16,7 @@ WORKDIR /home/work/${PADDLE_TOOLKIT}
 # toolkit install
 RUN /opt/conda/envs/python35-paddle120-env/bin/pip install --no-cache-dir -r requirements.txt \
     -i https://mirror.baidu.com/pypi/simple
+RUN /opt/conda/envs/python35-paddle120-env/bin/python setup.py bdist_wheel 
+RUN /opt/conda/envs/python35-paddle120-env/bin/pip install dist/* 
 
 CMD ["sh", "-C", "/opt/conda/include/container-start.sh"]
