@@ -42,10 +42,8 @@ WORKDIR /home/${PADDLE_TOOLKIT}
 # toolkit install
 RUN pip3.7 install --no-cache-dir -r requirements.txt \
     -i https://mirror.baidu.com/pypi/simple
-RUN python3.7 setup.py bdist_wheel \
-    -i https://mirror.baidu.com/pypi/simple
-RUN pip3.7 install dist/* \
-    -i https://mirror.baidu.com/pypi/simple
+RUN python3.7 setup.py bdist_wheel 
+RUN pip3.7 install dist/* 
 
 ENTRYPOINT ["/tini", "--"]
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", \
