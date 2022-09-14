@@ -2,7 +2,7 @@ ARG IMAGE_TAG=2.3.0
 ARG PADDLE_TOOLKIT=PaddleOCR
 FROM registry.baidubce.com/paddletoolkit-bml/paddle:${IMAGE_TAG}
 
-WORKDIR /home/work
+WORKDIR /paddle-collection
 
 ARG PADDLE_TOOLKIT
 COPY ${PADDLE_TOOLKIT} ./${PADDLE_TOOLKIT}
@@ -13,7 +13,7 @@ RUN /opt/conda/envs/python35-paddle120-env/bin/pip install --no-cache-dir --upgr
     -i https://mirror.baidu.com/pypi/simple
 
 
-WORKDIR /home/work/${PADDLE_TOOLKIT}
+WORKDIR /paddle-collection/${PADDLE_TOOLKIT}
 
 # toolkit install
 RUN /opt/conda/envs/python35-paddle120-env/bin/pip install --no-cache-dir -r requirements.txt \
