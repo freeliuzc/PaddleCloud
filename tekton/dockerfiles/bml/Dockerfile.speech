@@ -15,6 +15,7 @@ RUN /opt/conda/envs/python35-paddle120-env/bin/pip install --no-cache-dir --upgr
 WORKDIR /paddle-collection/${PADDLE_TOOLKIT}
 
 # toolkit install
+RUN /opt/conda/envs/python35-paddle120-env/bin/pip install pytest-runner -i https://mirror.baidu.com/pypi/simple
 RUN /opt/conda/envs/python35-paddle120-env/bin/pip install . -i https://mirror.baidu.com/pypi/simple
 
 CMD ["sh", "-C", "/opt/conda/include/container-start.sh"]
